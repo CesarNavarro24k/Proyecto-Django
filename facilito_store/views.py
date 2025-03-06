@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.shortcuts import redirect
+from django.contrib import messages
 def index(request):
     return render(request,"index.html", {
     "message": "Listado de productos",
@@ -23,5 +24,8 @@ def login_view(request):
         user = authenticate(username = username, password = password)
         if user:
             login(request,user)
+            messages.success(request,f" Bienvenido {user.username}")
             return redirect("index")
+        else:
+            messages.error(request, f"Usuario o contraseña no validos")
     return render(request, "users/login.html")
