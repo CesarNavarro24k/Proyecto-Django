@@ -3,5 +3,13 @@ from django.shortcuts import render
 
 def index(request):
     return render(request,"index.html", {
-        #contexto
+    "message": "listado de productos",
+    "title": "Productos",
+    "products": [
+        {"title" : "Playera", "price" : 5, "stock" : True},
+        {"title" : "Camisa", "price" : 7, "stock" : True},
+        {"title" : "Mochila", "price" : 20, "stock" :False},
+        {"title" : "Laptop", "price" : 500, "stock" :True},
+    ]
+
     })
