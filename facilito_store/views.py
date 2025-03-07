@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.shortcuts import redirect
 from django.contrib import messages
+from .forms import RegisterForm
 def index(request):
     return render(request,"index.html", {
     "message": "Listado de productos",
@@ -29,3 +30,13 @@ def login_view(request):
         else:
             messages.error(request, f"Usuario o contraseña no validos")
     return render(request, "users/login.html")
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "Sesión cerrada exitosamente")
+    return redirect('login')
+def register(request):
+    form = RegisterForm()
+    return render(request, "users/register.html",{
+        "form":form
+    })
